@@ -1,6 +1,7 @@
 package com.neu.lab.util;
 
 import com.neu.lab.Config;
+import com.neu.lab.entity.CallChain;
 import com.neu.lab.entity.JMethod;
 import org.apache.commons.io.FileUtils;
 
@@ -42,13 +43,11 @@ public class FileUtil {
         writeCollection(strings, filePath);
     }
 
-/*    public static void writeCallchainsTo(Set<DCallChain> chains, String filePath) {
+    public static void writeCallchainsTo(Set<CallChain> chains, String filePath) {
         List<String> strings = new LinkedList<>();
-        for(DCallChain cc: chains) {
+        for(CallChain cc: chains) {
             List<JMethod> chain = cc.getChain();
-            Set<APermission> permissions = cc.getPermissions();
-            StringBuilder sb = new StringBuilder(permissions.toString());
-            sb.append("\n");
+            StringBuilder sb = new StringBuilder();
             sb.append(chain.get(0));
             sb.append("\n");
             for(int i = 1; i < chain.size(); i++) {
@@ -60,7 +59,7 @@ public class FileUtil {
             strings.add(sb.toString());
         }
         writeCollection(strings, filePath);
-    }*/
+    }
 
     public static void writeStringTo(String string, String filePath) {
         writeContent(string, filePath);

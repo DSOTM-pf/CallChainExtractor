@@ -27,10 +27,10 @@ public class Config {
     public Path versionSdkFile = null;
     public Path androidCallbacksFile = null;
 
-    public void dataInit() {
+/*    public void dataInit() {
         apkFile = Paths.get("apks/sealnote.apk");
         androidJarDir = Paths.get("D:\\AndroidEnviorment\\androidJAR");
-    }
+    }*/
 
     public void init() throws IOException, XmlPullParserException {
         apkPackageName = ManifestAnalyzer.get(apkFile).getPackageName();

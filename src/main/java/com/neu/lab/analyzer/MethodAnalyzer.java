@@ -6,11 +6,13 @@ import com.neu.lab.Global;
 import com.neu.lab.entity.CallChain;
 import com.neu.lab.entity.JClass;
 import com.neu.lab.entity.JMethod;
+import com.neu.lab.util.FileUtil;
 import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.jimple.toolkits.callgraph.Sources;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -33,10 +35,10 @@ public class MethodAnalyzer {
      * with ALL: all specified in sdk
      */
 
-//    private Map<JMethod, SootMethod> applicationMethods = new HashMap<>();
+    private Set<JMethod> applicationMethods = new HashSet<>();
     //    private Map<JMethod,Set<APermission>> apiToDangerousPermissions = new HashMap<>();
-    private Set<JMethod> apkMethods = new HashSet<>();
-    private Set<CallChain> dangerousCallChains = new HashSet<>();
+    private Set<JMethod> allMethods = new HashSet<>();
+    private Set<CallChain> callChains = new HashSet<>();
 
     private CallGraph cg;
 
@@ -71,30 +73,54 @@ public class MethodAnalyzer {
             return methodSet;
         }
     */
-    public void getApkMethods() {
+    public void getApplicationMethods()
+    {
+        //app methods属于Android的方法
+        for (SootClass sootClass : Scene.v().getApplicationClasses()) {
+            for (SootMethod sootMethod : sootClass.getMethods()) {
+                JMethod applicationMethod = JMethod.fromSootSignature(sootMethod.getSignature());
+                applicationMethods.add(applicationMethod);
+            }
+        }
+    }
+    /**
+     *CallGraph all method
+     */
+    public void getCGMethods() {
         for (Edge edge : cg) {
             String tgtSig = edge.getTgt().method().getSignature();
             JMethod tgtMethod = JMethod.fromSootSignature(tgtSig);
-            apkMethods.add(tgtMethod);
+            allMethods.add(tgtMethod);
         }
     }
-
-
+    private void methodInit()
+    {
+        getApplicationMethods();//包括library么
+        getCGMethods();
+    }
+    public Set<CallChain> getApplicationCallChains()
+    {
+        methodInit();
+        for (JMethod api : allMethods) {
+            if(applicationMethods.contains(api)){
+                LinkedList<JMethod> callChain = new LinkedList<>();
+                callChain.addFirst(api);
+                travelCallGraph(callChain, new HashSet<>());}
+        }
+        return callChains;
+    }
     /**
      * 寻找所有方法的CallChain
      * ？如何确定最底部的方法
      */
     public Set<CallChain> getAllCallchains() {
-/*        if (applicationMethods.size() == 0)
-            obtainApplicationMethods();*/
-        getApkMethods();
-        for(JMethod api:apkMethods)
-        {
+        methodInit();
+        for (JMethod api : allMethods) {
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
             travelCallGraph(callChain, new HashSet<>());
         }
-        return dangerousCallChains;
+        return callChains;
     }
 
     private void travelCallGraph(LinkedList<JMethod> chain, Set<JMethod> visited) {
@@ -112,7 +138,7 @@ public class MethodAnalyzer {
                 if (chain.size() > 1) {  // cannot be a single method
                     JMethod api = chain.getLast();
                     CallChain cc = new CallChain(chain); //temp
-                    dangerousCallChains.add(cc);
+                    callChains.add(cc);
                 }
             } else if (!visited.contains(nextMethod)) {
                 chain.addFirst(nextMethod);

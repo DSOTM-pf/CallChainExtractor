@@ -42,6 +42,7 @@ public  class CallChainMain {
     }
 
     public  static Set<CallChain> getAppChains(Path apkFile,Path androidJars) throws IOException, XmlPullParserException {
+
         pre(apkFile,androidJars);
         LogUtil.info(CallChainMain.class, "Start extracting methods (method analysis)");
         Set<CallChain> allCallchains = methodAnalyzer.getApplicationCallChains();

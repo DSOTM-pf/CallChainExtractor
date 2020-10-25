@@ -31,5 +31,17 @@ public class CallChain {
         this.chain = new ArrayList<>(chain);
         this.chainSize = chain.size();
     }
-
+    public boolean equals(CallChain callChain)
+    {
+        if(!callChain.chain.get(callChain.chain.size()-1).equals(this.api))
+        {
+            return false;
+        }
+        if(callChain.chainSize!=this.chainSize) return false;
+        for(int i = 0;i<this.chainSize;i++)
+        {
+            if(!callChain.chain.get(i).equals(this.chain.get(i))) return false;
+        }
+        return true;
+    }
 }

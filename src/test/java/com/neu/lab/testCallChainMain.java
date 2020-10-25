@@ -1,6 +1,7 @@
 package com.neu.lab;
 
 import com.neu.lab.entity.CallChain;
+import com.neu.lab.entity.JMethod;
 import com.neu.lab.util.FileUtil;
 import org.junit.Test;
 import org.xmlpull.v1.XmlPullParserException;
@@ -16,7 +17,7 @@ public class testCallChainMain {
     @Test
     public void testMain() throws IOException, XmlPullParserException {
 
-        Set<CallChain> resultsOfALl = CallChainMain.getAllChains(Paths.get("apks/hello.apk"),Paths.get("D:\\AndroidEnvitorment\\androidJAR"));
+        Set<CallChain> resultsOfALl = CallChainMain.getAllChains(Paths.get("apks/hello.apk"),Paths.get("D:\\AndroidEnviorment\\androidJAR"));
         Set<CallChain> resultsOfAPP = CallChainMain.getAppChains(Paths.get("apks/hello.apk"),Paths.get("D:\\AndroidEnviorment\\androidJAR"));
 
         FileUtil.writeCallchainsTo(resultsOfALl,"resultsOfALl.txt");

@@ -38,7 +38,6 @@ public class MethodAnalyzer {
     private Set<JMethod> applicationMethods = new HashSet<>();
     //    private Map<JMethod,Set<APermission>> apiToDangerousPermissions = new HashMap<>();
     private Set<JMethod> allMethods = new HashSet<>();
-    private Set<CallChain> callChains = new HashSet<>();
 
     private CallGraph cg;
 
@@ -76,10 +75,17 @@ public class MethodAnalyzer {
     public void getApplicationMethods()
     {
         //app methods属于Android的方法
+//        Scene.v().getBasicClasses()
+//        Scene.v().getPhantomClasses()
+//        Scene.v().getLibraryClasses()
+//        Scene.v().getApplicationClasses()
+
         for (SootClass sootClass : Scene.v().getApplicationClasses()) {
             for (SootMethod sootMethod : sootClass.getMethods()) {
-                JMethod applicationMethod = JMethod.fromSootSignature(sootMethod.getSignature());
-                applicationMethods.add(applicationMethod);
+                if (isBottom(sootMethod)) {
+                    JMethod applicationMethod = JMethod.fromSootSignature(sootMethod.getSignature());
+                    applicationMethods.add(applicationMethod);
+                }
             }
         }
     }
@@ -88,42 +94,66 @@ public class MethodAnalyzer {
      */
     public void getCGMethods() {
         for (Edge edge : cg) {
-            String tgtSig = edge.getTgt().method().getSignature();
-            JMethod tgtMethod = JMethod.fromSootSignature(tgtSig);
-            allMethods.add(tgtMethod);
+            if (isBottom(edge.getTgt().method())) {
+                String tgtSig = edge.getTgt().method().getSignature();
+                JMethod tgtMethod = JMethod.fromSootSignature(tgtSig);
+                allMethods.add(tgtMethod);
+            }
         }
     }
     private void methodInit()
     {
-        getApplicationMethods();//包括library么
+        getApplicationMethods();
         getCGMethods();
+    }
+    private boolean isBottom(SootMethod sootMethod)
+    {
+        Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesInto(sootMethod));
+        if (ptargets.next()==null) {
+        return false;
+        }
+        return true;
     }
     public Set<CallChain> getApplicationCallChains()
     {
+        Set<CallChain> callChains = new HashSet<>();
+        callChains.clear();
         methodInit();
         for (JMethod api : allMethods) {
+            //判断API是不是谷底
             if(applicationMethods.contains(api)){
                 LinkedList<JMethod> callChain = new LinkedList<>();
                 callChain.addFirst(api);
-                travelCallGraph(callChain, new HashSet<>());}
+                travelCallGraph(callChain, new HashSet<>(),callChains);}
         }
         return callChains;
     }
+
     /**
      * 寻找所有方法的CallChain
      * ？如何确定最底部的方法
      */
     public Set<CallChain> getAllCallchains() {
+        Set<CallChain> callChains = new HashSet<>();
+        callChains.clear();
         methodInit();
         for (JMethod api : allMethods) {
+            //判断API是不是谷底
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
-            travelCallGraph(callChain, new HashSet<>());
+            travelCallGraph(callChain, new HashSet<>(),callChains);
         }
         return callChains;
     }
-
-    private void travelCallGraph(LinkedList<JMethod> chain, Set<JMethod> visited) {
+    private boolean isInSet(CallChain callChain,Set<CallChain> callChains)
+    {
+        for(CallChain pre:callChains)
+        {
+            if(callChain.equals(pre)) return true;
+        }
+        return false;
+    }
+    private void travelCallGraph(LinkedList<JMethod> chain, Set<JMethod> visited,Set<CallChain> callChains) {
         JMethod method = chain.getFirst();
         visited.add(method);
 
@@ -135,15 +165,16 @@ public class MethodAnalyzer {
         parents.forEachRemaining(p -> {
             JMethod nextMethod = JMethod.fromSootSignature(p.method().getSignature());
             if (reachDummy(nextMethod) || reachSdk(nextMethod)) {
-                if (chain.size() > 1) {  // cannot be a single method
-                    JMethod api = chain.getLast();
+                if (chain.size() > 1 ) {  // cannot be a single method
+                    JMethod api = chain.getFirst();
+                    if(!api.getName().startsWith("java.lang")) {
                     CallChain cc = new CallChain(chain); //temp
-                    callChains.add(cc);
+                    if(!isInSet(cc,callChains)) callChains.add(cc);}
                 }
             } else if (!visited.contains(nextMethod)) {
                 chain.addFirst(nextMethod);
-                travelCallGraph(chain, visited);
-                chain.removeFirst();
+                travelCallGraph(chain, visited,callChains);
+                chain.removeFirst();//dummy method
             }
         });
     }

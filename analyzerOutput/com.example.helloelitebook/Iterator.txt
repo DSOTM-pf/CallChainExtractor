@@ -1,0 +1,11 @@
+       //遍历CallGraph
+        // Iterate over the callgraph
+        for (Iterator<Edge> edgeIt = Scene.v().getCallGraph().iterator(); edgeIt.hasNext(); ) {
+            Edge edge = edgeIt.next();
+
+            SootMethod smSrc = edge.src();
+            Unit uSrc = edge.srcStmt();
+            SootMethod smDest = edge.tgt();
+            FileUtil.appendStringTo("Edge from " + uSrc + " in " + smSrc + " to " + smDest+"\n","Iterator.txt");
+//            System.out.println();
+        }

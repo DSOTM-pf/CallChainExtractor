@@ -23,18 +23,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94bb46ff-4652-4028-af7f-346233369448" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/apks/com.ichi2.anki_21300305.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.d049mapbox/test.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apks/hello.apk" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apks/mapbox.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/neu/lab/cfgTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/resultsOfALl.txt" beforeDir="false" afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/resultsOfALl.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/resultsOfAPP.txt" beforeDir="false" afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/resultsOfAPP.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neu/lab/CallChainMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neu/lab/CallChainMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/neu/lab/Test.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/neu/lab/testCallChainMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/neu/lab/testCallChainMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/neu/lab/CallChainMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/neu/lab/CallChainMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/neu/lab/analyzer/MethodAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/neu/lab/analyzer/MethodAnalyzer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/neu/lab/Test.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/com/neu/lab/testCallChainMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/neu/lab/testCallChainMain.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,11 +75,11 @@
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Wowhhh\CallChainExtractor\analyzerOutput\com.example.helloelitebook\backup" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Wowhhh\CallChainExtractor\apks" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Wowhhh\CallChainExtractor\analyzerOutput\com.example.helloelitebook\backup" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.testCallChainMain">
@@ -95,6 +92,34 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cfgTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CallChainExtractor" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.neu.lab.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.neu.lab" />
+      <option name="MAIN_CLASS_NAME" value="com.neu.lab.cfgTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -133,6 +158,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.testCallChainMain" />
+        <item itemvalue="JUnit.cfgTest" />
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.testCallChainMain.testMain" />
       </list>
@@ -153,7 +179,8 @@
       <workItem from="1603632196137" duration="1360000" />
       <workItem from="1603675013551" duration="3771000" />
       <workItem from="1603765337954" duration="5289000" />
-      <workItem from="1603845652986" duration="9482000" />
+      <workItem from="1603845652986" duration="9711000" />
+      <workItem from="1603866511017" duration="9946000" />
     </task>
     <servers />
   </component>
@@ -180,64 +207,106 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="790" y="374" key="#com.intellij.debugger.actions.ViewTextAction/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603506912321" />
-    <state width="1877" height="434" key="GridCell.Tab.0.bottom" timestamp="1603866010486">
+    <state width="1877" height="426" key="GridCell.Tab.0.bottom" timestamp="1603875291607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="434" key="GridCell.Tab.0.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603866010486" />
+    <state width="1877" height="426" key="GridCell.Tab.0.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875291607" />
     <state width="1237" height="149" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="434" key="GridCell.Tab.0.center" timestamp="1603866010486">
+    <state width="1877" height="426" key="GridCell.Tab.0.center" timestamp="1603875291607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="434" key="GridCell.Tab.0.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603866010486" />
+    <state width="1877" height="426" key="GridCell.Tab.0.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875291607" />
     <state width="1237" height="149" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="434" key="GridCell.Tab.0.left" timestamp="1603866010485">
+    <state width="1877" height="426" key="GridCell.Tab.0.left" timestamp="1603875291607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="434" key="GridCell.Tab.0.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603866010485" />
+    <state width="1877" height="426" key="GridCell.Tab.0.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875291607" />
     <state width="1237" height="149" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="434" key="GridCell.Tab.0.right" timestamp="1603866010486">
+    <state width="1877" height="426" key="GridCell.Tab.0.right" timestamp="1603875291607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="434" key="GridCell.Tab.0.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603866010486" />
+    <state width="1877" height="426" key="GridCell.Tab.0.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875291607" />
     <state width="1237" height="149" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="426" key="GridCell.Tab.1.bottom" timestamp="1603865556292">
+    <state width="1877" height="426" key="GridCell.Tab.1.bottom" timestamp="1603875306000">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603865556292" />
+    <state width="1877" height="426" key="GridCell.Tab.1.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875306000" />
     <state width="1237" height="149" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
-    <state width="1877" height="426" key="GridCell.Tab.1.center" timestamp="1603865556291">
+    <state width="1877" height="426" key="GridCell.Tab.1.center" timestamp="1603875306000">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603865556291" />
+    <state width="1877" height="426" key="GridCell.Tab.1.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875306000" />
     <state width="1237" height="149" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
-    <state width="1877" height="426" key="GridCell.Tab.1.left" timestamp="1603865556291">
+    <state width="1877" height="426" key="GridCell.Tab.1.left" timestamp="1603875305999">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603865556291" />
+    <state width="1877" height="426" key="GridCell.Tab.1.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875305999" />
     <state width="1237" height="149" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
-    <state width="1877" height="426" key="GridCell.Tab.1.right" timestamp="1603865556291">
+    <state width="1877" height="426" key="GridCell.Tab.1.right" timestamp="1603875306000">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603865556291" />
+    <state width="1877" height="426" key="GridCell.Tab.1.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603875306000" />
     <state width="1237" height="149" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
     <state x="121" y="0" key="SettingsEditor" timestamp="1603182967966">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1603182967966" />
+    <state x="499" y="255" width="921" height="642" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1603872675405">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="499" y="255" width="921" height="642" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603872675405" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603871739864">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603871739864" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/neu/lab/testCallChainMain.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="16" />
+          <line>22</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/CallChainMain.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java</url>
+          <line>147</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java</url>
+          <line>148</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/neu/lab/testCallChainMain.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="24" />
+          <line>23</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/util/FileUtil.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/util/FileUtil.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java</url>
+          <line>209</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="39" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

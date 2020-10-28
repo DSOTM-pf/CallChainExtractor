@@ -72,8 +72,7 @@ public class MethodAnalyzer {
             return methodSet;
         }
     */
-    public void getApplicationMethods()
-    {
+    public void getApplicationMethods() {
         //app methods属于Android的方法
 //        Scene.v().getBasicClasses()
 //        Scene.v().getPhantomClasses()
@@ -89,8 +88,9 @@ public class MethodAnalyzer {
             }
         }
     }
+
     /**
-     *CallGraph all method
+     * CallGraph all method
      */
     public void getCGMethods() {
         for (Edge edge : cg) {
@@ -101,30 +101,36 @@ public class MethodAnalyzer {
             }
         }
     }
-    private void methodInit()
-    {
+
+    private void methodInit() {
         getApplicationMethods();
         getCGMethods();
     }
-    private boolean isBottom(SootMethod sootMethod)
-    {
+
+    private boolean isBottom(SootMethod sootMethod) {
+
         Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesInto(sootMethod));
-        if (ptargets.next()==null) {
-        return false;
+        if (ptargets.next() == null) {
+            return false;
         }
         return true;
     }
-    public Set<CallChain> getApplicationCallChains()
-    {
+
+    public Set<CallChain> getApplicationCallChains() {
         Set<CallChain> callChains = new HashSet<>();
         callChains.clear();
         methodInit();
+        int i = 1;
+        System.out.println("All Method：" + allMethods.size());
         for (JMethod api : allMethods) {
             //判断API是不是谷底
-            if(applicationMethods.contains(api)){
+            if (applicationMethods.contains(api)) {
                 LinkedList<JMethod> callChain = new LinkedList<>();
                 callChain.addFirst(api);
-                travelCallGraph(callChain, new HashSet<>(),callChains);}
+                travelCallGraph(callChain, new HashSet<>(), callChains);
+            }
+            System.out.println("Now：" + i);
+            i++;
         }
         return callChains;
     }
@@ -138,24 +144,25 @@ public class MethodAnalyzer {
         callChains.clear();
         methodInit();
         int i = 1;
-        System.out.println("方法数量："+allMethods.size());
+        System.out.println("All Method：" + allMethods.size());
         for (JMethod api : allMethods) {
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
-            travelCallGraph(callChain, new HashSet<>(),callChains);
-            System.out.println("当前："+ i);i++;
+            travelCallGraph(callChain, new HashSet<>(), callChains);
+            System.out.println("Now：" + i);
+            i++;
         }
         return callChains;
     }
-    private boolean isInSet(CallChain callChain,Set<CallChain> callChains)
-    {
-        for(CallChain pre:callChains)
-        {
-            if(callChain.equals(pre)) return true;
+
+    private boolean isInSet(CallChain callChain, Set<CallChain> callChains) {
+        for (CallChain pre : callChains) {
+            if (callChain.equals(pre)) return true;
         }
         return false;
     }
-    private void travelCallGraph(LinkedList<JMethod> chain, Set<JMethod> visited,Set<CallChain> callChains) {
+
+    private void travelCallGraph(LinkedList<JMethod> chain, Set<JMethod> visited, Set<CallChain> callChains) {
         JMethod method = chain.getFirst();
         visited.add(method);
 
@@ -167,17 +174,18 @@ public class MethodAnalyzer {
         parents.forEachRemaining(p -> {
             JMethod nextMethod = JMethod.fromSootSignature(p.method().getSignature());
             if (reachDummy(nextMethod) || reachSdk(nextMethod)) {
-                if (chain.size() > 1 ) {  // cannot be a single method
+                if (chain.size() > 1) {  // cannot be a single method
                     JMethod api = chain.getFirst();
-                    if(!api.getName().startsWith("java.lang") && !api.getName().startsWith("org.xmlpull")) {
+                    if (!api.getName().startsWith("java.lang") && !api.getName().startsWith("org.xmlpull")) {
                         CallChain cc = new CallChain(chain); //temp
-//                    if(!isInSet(cc,callChains)) callChains.add(cc);}
-                        callChains.add(cc);
+                        if (!isInSet(cc, callChains)) callChains.add(cc);
                     }
+//                        callChains.add(cc);}
+
                 }
             } else if (!visited.contains(nextMethod)) {
                 chain.addFirst(nextMethod);
-                travelCallGraph(chain, visited,callChains);
+                travelCallGraph(chain, visited, callChains);
                 chain.removeFirst();//dummy method
             }
         });
@@ -195,6 +203,21 @@ public class MethodAnalyzer {
         return false;
     }
 
+    public void test2018() {
+        for (Edge edge : cg) {
+            //这个是判断java的 edge.src().isEntryMethod()
+            if (isDummyMain(edge.src())) {
+                System.out.println(edge);
+            }
+        }
+    }
+
+    private boolean isDummyMain(SootMethod sootMethod) {
+        if (sootMethod.toString().contains("dummyMainClass")) {
+            return true;
+        }
+        return false;
+    }
 /*    private void obtainApplicationMethods() {
         for (SootClass sootClass : Scene.v().getApplicationClasses()) {
             for (SootMethod sootMethod : sootClass.getMethods()) {

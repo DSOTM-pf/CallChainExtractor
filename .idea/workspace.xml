@@ -23,16 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94bb46ff-4652-4028-af7f-346233369448" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/Iterator.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/backup/resultsOfALl.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/backup/resultsOfAPP.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/resultsOfALl.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.helloelitebook/resultsOfAPP.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.sealnotef07b/resultsOfALl.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analyzerOutput/com.example.sealnotef07b/resultsOfAPP.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +171,7 @@
       <workItem from="1603675013551" duration="3771000" />
       <workItem from="1603765337954" duration="5289000" />
       <workItem from="1603845652986" duration="9711000" />
-      <workItem from="1603866511017" duration="10699000" />
+      <workItem from="1603866511017" duration="11152000" />
     </task>
     <servers />
   </component>

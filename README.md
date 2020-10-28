@@ -59,7 +59,36 @@ This method will filter out the Call Chain whose ending node does not belong to 
 #### Example Outputs
 
 - **Outputs of ALL Chains**
+
+  ```mv.setMyLocationEnabled(true);``` This API is encapsulated in the mapbox library, so the internal structure is relatively complicated. 
+
+  Take one of the extracted Call Chains as an example :
+
+  ```
+  com.example.d049mapbox.MainActivity.onCreate(android.os.Bundle)void
+   com.mapbox.mapboxsdk.views.MapView.setMyLocationEnabled(boolean)void
+    com.mapbox.mapboxsdk.views.UserLocationView.setEnabled(boolean)void
+     com.mapbox.mapboxsdk.views.UserLocationView.toggleGps(boolean)void
+       ......
+       java.lang.Exception.<init>()void
+  ```
+
+  
+
 - **Outputs of Application Chains**
+
+  The code is the same as above, and the output below is different from the above:
+
+  ```
+  com.example.d049mapbox.MainActivity.onCreate(android.os.Bundle)void
+   com.mapbox.mapboxsdk.views.MapView.setMyLocationEnabled(boolean)void
+    com.mapbox.mapboxsdk.views.UserLocationView.setEnabled(boolean)void
+     com.mapbox.mapboxsdk.views.UserLocationView.toggleGps(boolean)void
+       ......
+       com.squareup.okhttp.internal.framed.HeadersMode.<clinit>()void
+  ```
+
+  Using this method will filter out that the end node does not belong to the method defined by the application . ```java.lang.Exception.<init>()void``` belongs to the one provided in jdk.
 
 ### Logs
 

@@ -30,11 +30,36 @@ Set<CallChain> resultsOfAPP = CallChainMain.getAppChains(Paths.get("apks/mapbox.
 
 If you use this method to obtain the calling path of the APK, it is equivalent to filtering the results obtained in the previous method.
 
-This method will filter out the Call Chain whose ending node does not belong to the method defined by the application. You can refer to the following example to help understand.
+This method will filter out the Call Chain whose ending node does not belong to the method defined by the application. 
 
 #### Example APK
 
+- **Code**
+
+  ```java
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+  
+          // Show user location (purposely not in follow mode)
+          if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) ||
+                  (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+              ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_LOCATION);
+          } else {
+              mv.setMyLocationEnabled(true);
+          }
+      }
+  ```
+
+- **Location**
+
+  [mapbox.apk](https://github.com/wowhhh/CallChainExtractor/blob/master/apks/mapbox.apk)
+
 #### Example Outputs
+
+- **Outputs of ALL Chains**
+- **Outputs of Application Chains**
 
 ### Logs
 

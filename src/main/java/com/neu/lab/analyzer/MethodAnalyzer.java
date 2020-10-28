@@ -137,11 +137,13 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         callChains.clear();
         methodInit();
+        int i = 1;
+        System.out.println("方法数量："+allMethods.size());
         for (JMethod api : allMethods) {
-            //判断API是不是谷底
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
             travelCallGraph(callChain, new HashSet<>(),callChains);
+            System.out.println("当前："+ i);i++;
         }
         return callChains;
     }
@@ -167,9 +169,11 @@ public class MethodAnalyzer {
             if (reachDummy(nextMethod) || reachSdk(nextMethod)) {
                 if (chain.size() > 1 ) {  // cannot be a single method
                     JMethod api = chain.getFirst();
-                    if(!api.getName().startsWith("java.lang")) {
-                    CallChain cc = new CallChain(chain); //temp
-                    if(!isInSet(cc,callChains)) callChains.add(cc);}
+                    if(!api.getName().startsWith("java.lang") && !api.getName().startsWith("org.xmlpull")) {
+                        CallChain cc = new CallChain(chain); //temp
+//                    if(!isInSet(cc,callChains)) callChains.add(cc);}
+                        callChains.add(cc);
+                    }
                 }
             } else if (!visited.contains(nextMethod)) {
                 chain.addFirst(nextMethod);

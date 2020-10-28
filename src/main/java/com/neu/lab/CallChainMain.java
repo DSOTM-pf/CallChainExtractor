@@ -31,6 +31,7 @@ public  class CallChainMain {
         //
         CGAnalyzer cgAnalyzer = CGAnalyzer.get(Config.get().inputFmt);
         LogUtil.info(CallChainMain.class, "Start constructing call graph");
+
         //CallGraph
         CallGraph callGraph = cgAnalyzer.getCallGraph(Config.get().cgAlgo);
 
@@ -45,10 +46,10 @@ public  class CallChainMain {
 
         pre(apkFile,androidJars);
         LogUtil.info(CallChainMain.class, "Start extracting methods (method analysis)");
-        Set<CallChain> allCallchains = methodAnalyzer.getApplicationCallChains();
-        LogUtil.info(CallChainMain.class, "Extracted {}  api-call-chains", allCallchains.size());
+        Set<CallChain> appCallchains = methodAnalyzer.getApplicationCallChains();
+        LogUtil.info(CallChainMain.class, "Extracted {}  api-call-chains", appCallchains.size());
 
-        return allCallchains;
+        return appCallchains;
     }
 
     public  static Set<CallChain> getAllChains(Path apkFile,Path androidJars) throws IOException, XmlPullParserException {

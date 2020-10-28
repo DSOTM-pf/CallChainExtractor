@@ -129,7 +129,7 @@ public class MethodAnalyzer {
                 callChain.addFirst(api);
                 travelCallGraph(callChain, new HashSet<>(), callChains);
             }
-            System.out.println("Now:" + i+"/"+allMethods.size());
+            System.out.println("Now:" + i + "/" + allMethods.size());
             i++;
         }
         return callChains;
@@ -149,7 +149,7 @@ public class MethodAnalyzer {
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
             travelCallGraph(callChain, new HashSet<>(), callChains);
-            System.out.println("Now:" + i+"/"+allMethods.size());
+            System.out.println("Now:" + i + "/" + allMethods.size());
             i++;
         }
         return callChains;
@@ -204,12 +204,20 @@ public class MethodAnalyzer {
     }
 
     public void test2018() {
+        Set<CallChain> callChains = new HashSet<>();
         for (Edge edge : cg) {
             //这个是判断java的 edge.src().isEntryMethod()
             if (isDummyMain(edge.src())) {
-                System.out.println(edge);
+/*                MethodOrMethodContext m = edge.getSrc();
+
+                Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesOutOf(m));
+                System.out.println(ptargets.next());
+                System.out.println(edge);*/
+//                visitMethod(new LinkedList<>(),new HashSet<>(), edge.src(), callChains);
+                visitMethod(new LinkedList<>(),new HashSet<>(), edge.tgt(), callChains);
             }
         }
+        System.out.println("end");
     }
 
     private boolean isDummyMain(SootMethod sootMethod) {
@@ -217,6 +225,37 @@ public class MethodAnalyzer {
             return true;
         }
         return false;
+    }
+
+    private void visitMethod(LinkedList<JMethod> chain,Set<String> visited, SootMethod method,Set<CallChain> callChains) {
+        visited.add(method.getSignature());
+        Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesOutOf(method));
+        ptargets.forEachRemaining(p -> {
+            if(p!=null) {
+                SootMethod child =  p.method();
+                System.out.println(p.method());
+                JMethod nextMethod = JMethod.fromSootSignature(child.getSignature());
+                chain.add(nextMethod);//add yo chain
+                if (!visited.contains(child.getSignature())) visitMethod(chain, visited, child, callChains);
+            }
+            else
+            {
+                //add to callChains
+                CallChain cc = new CallChain(chain);
+                callChains.add(cc);
+            }
+        });
+        /*if (ptargets != null) {
+            while (ptargets.hasNext()) {
+                SootMethod child = (SootMethod) ptargets.next();
+                JMethod nextMethod = JMethod.fromSootSignature(child.getSignature());
+                chain.add(nextMethod);//add yo chain
+                if (!visited.contains(child.getSignature())) visitMethod(chain,visited,child,callChains);
+            }
+            //add to callChains
+            CallChain cc = new CallChain(chain);
+            callChains.add(cc);
+        }*/
     }
 /*    private void obtainApplicationMethods() {
         for (SootClass sootClass : Scene.v().getApplicationClasses()) {
@@ -226,4 +265,5 @@ public class MethodAnalyzer {
             }
         }
     }*/
+
 }

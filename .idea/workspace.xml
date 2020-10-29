@@ -89,19 +89,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="cfgTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CallChainExtractor" />
       <extension name="coverage">
@@ -174,6 +161,8 @@
       <workItem from="1603765337954" duration="5289000" />
       <workItem from="1603845652986" duration="9711000" />
       <workItem from="1603866511017" duration="16413000" />
+      <workItem from="1603933633555" duration="2376000" />
+      <workItem from="1603937331929" duration="893000" />
     </task>
     <servers />
   </component>
@@ -200,54 +189,54 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="790" y="374" key="#com.intellij.debugger.actions.ViewTextAction/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603506912321" />
-    <state width="1877" height="426" key="GridCell.Tab.0.bottom" timestamp="1603894851047">
+    <state width="1877" height="426" key="GridCell.Tab.0.bottom" timestamp="1603938187958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894851047" />
+    <state width="1877" height="426" key="GridCell.Tab.0.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938187958" />
     <state width="1237" height="149" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="426" key="GridCell.Tab.0.center" timestamp="1603894851047">
+    <state width="1877" height="426" key="GridCell.Tab.0.center" timestamp="1603938187958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894851047" />
+    <state width="1877" height="426" key="GridCell.Tab.0.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938187958" />
     <state width="1237" height="149" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="426" key="GridCell.Tab.0.left" timestamp="1603894851047">
+    <state width="1877" height="426" key="GridCell.Tab.0.left" timestamp="1603938187957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894851047" />
+    <state width="1877" height="426" key="GridCell.Tab.0.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938187957" />
     <state width="1237" height="149" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="426" key="GridCell.Tab.0.right" timestamp="1603894851047">
+    <state width="1877" height="426" key="GridCell.Tab.0.right" timestamp="1603938187958">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.0.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894851047" />
+    <state width="1877" height="426" key="GridCell.Tab.0.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938187958" />
     <state width="1237" height="149" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1603627437914" />
-    <state width="1877" height="426" key="GridCell.Tab.1.bottom" timestamp="1603894843044">
+    <state width="1877" height="426" key="GridCell.Tab.1.bottom" timestamp="1603938179400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894843044" />
+    <state width="1877" height="426" key="GridCell.Tab.1.bottom/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938179400" />
     <state width="1237" height="149" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
-    <state width="1877" height="426" key="GridCell.Tab.1.center" timestamp="1603894843044">
+    <state width="1877" height="426" key="GridCell.Tab.1.center" timestamp="1603938179400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894843044" />
+    <state width="1877" height="426" key="GridCell.Tab.1.center/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938179400" />
     <state width="1237" height="149" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
-    <state width="1877" height="426" key="GridCell.Tab.1.left" timestamp="1603894843044">
+    <state width="1877" height="426" key="GridCell.Tab.1.left" timestamp="1603938179400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894843044" />
+    <state width="1877" height="426" key="GridCell.Tab.1.left/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938179400" />
     <state width="1237" height="149" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
-    <state width="1877" height="426" key="GridCell.Tab.1.right" timestamp="1603894843044">
+    <state width="1877" height="426" key="GridCell.Tab.1.right" timestamp="1603938179400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="426" key="GridCell.Tab.1.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894843044" />
+    <state width="1877" height="426" key="GridCell.Tab.1.right/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938179400" />
     <state width="1237" height="149" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603627450018" />
     <state x="121" y="0" key="SettingsEditor" timestamp="1603182967966">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1603182967966" />
-    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1603894437408">
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1603938125144">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="968" height="528" key="XDebugger.FullValuePopup/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603894437408" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup/-1920.0.1280.693/0.0.1920.1040@0.0.1920.1040" timestamp="1603938125144" />
     <state x="499" y="255" width="921" height="642" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1603872675405">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -302,8 +291,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java</url>
-          <line>243</line>
-          <option name="timeStamp" value="52" />
+          <line>216</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/neu/lab/analyzer/MethodAnalyzer.java</url>
+          <line>237</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

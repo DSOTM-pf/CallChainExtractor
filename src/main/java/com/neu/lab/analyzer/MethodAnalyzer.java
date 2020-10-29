@@ -109,7 +109,7 @@ public class MethodAnalyzer {
 
     private boolean isBottom(SootMethod sootMethod) {
 
-        Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesInto(sootMethod));
+        Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesOutOf(sootMethod));
         if (ptargets.next() == null) {
             return false;
         }
@@ -214,7 +214,7 @@ public class MethodAnalyzer {
                 System.out.println(ptargets.next());
                 System.out.println(edge);*/
 //                visitMethod(new LinkedList<>(),new HashSet<>(), edge.src(), callChains);
-                visitMethod(new LinkedList<>(),new HashSet<>(), edge.tgt(), callChains);
+                visitMethod(new LinkedList<>(), new HashSet<>(), edge.tgt(), callChains);
             }
         }
         System.out.println("end");
@@ -226,36 +226,34 @@ public class MethodAnalyzer {
         }
         return false;
     }
-
-    private void visitMethod(LinkedList<JMethod> chain,Set<String> visited, SootMethod method,Set<CallChain> callChains) {
+    //遍历图
+    private void visitMethod(LinkedList<JMethod> chain, Set<String> visited, SootMethod method, Set<CallChain> callChains) {
         visited.add(method.getSignature());
-        Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesOutOf(method));
-        ptargets.forEachRemaining(p -> {
-            if(p!=null) {
-                SootMethod child =  p.method();
-                System.out.println(p.method());
+        Iterator<MethodOrMethodContext> parents = new Sources(cg.edgesInto(method));
+
+        Iterator<MethodOrMethodContext> ctargets = new Sources(cg.edgesOutOf(method));
+        for(Iterator<Edge> cEdges = cg.edgesOutOf(method);cEdges.hasNext();){
+            Edge e = cEdges.next();
+            SootMethod nextMethod = e.getTgt().method();//target method
+            System.out.println(nextMethod);
+
+        }
+        ctargets.forEachRemaining(p -> {
+            if (p != null) {
+                //如何判断是最后一个方法？
+
+/*                SootMethod child = p.tgt();
+                System.out.println(p.tgt());
                 JMethod nextMethod = JMethod.fromSootSignature(child.getSignature());
                 chain.add(nextMethod);//add yo chain
-                if (!visited.contains(child.getSignature())) visitMethod(chain, visited, child, callChains);
-            }
-            else
-            {
-                //add to callChains
-                CallChain cc = new CallChain(chain);
-                callChains.add(cc);
+                if (isBottom(p.tgt())) {
+                    CallChain cc = new CallChain(chain);
+                    callChains.add(cc);
+                } else {
+                    if (!visited.contains(child.getSignature())) visitMethod(chain, visited, child, callChains);
+                }*/
             }
         });
-        /*if (ptargets != null) {
-            while (ptargets.hasNext()) {
-                SootMethod child = (SootMethod) ptargets.next();
-                JMethod nextMethod = JMethod.fromSootSignature(child.getSignature());
-                chain.add(nextMethod);//add yo chain
-                if (!visited.contains(child.getSignature())) visitMethod(chain,visited,child,callChains);
-            }
-            //add to callChains
-            CallChain cc = new CallChain(chain);
-            callChains.add(cc);
-        }*/
     }
 /*    private void obtainApplicationMethods() {
         for (SootClass sootClass : Scene.v().getApplicationClasses()) {

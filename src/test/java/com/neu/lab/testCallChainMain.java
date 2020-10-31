@@ -17,10 +17,10 @@ public class testCallChainMain {
     @Test
     public void testMain() throws IOException, XmlPullParserException {
 
-//        Set<CallChain> resultsOfALl = CallChainMain.getAllChains(Paths.get("apks/mapbox.apk"),Paths.get("D:\\AndroidEnviorment\\androidJAR"));
+        Set<CallChain> resultsOfALl = CallChainMain.getAllChains(Paths.get("apks/mapbox.apk"),Paths.get("D:\\AndroidEnviorment\\androidJAR"));
         Set<CallChain> resultsOfAPP = CallChainMain.getAppChains(Paths.get("apks/hello.apk"),Paths.get("D:\\AndroidEnviorment\\androidJAR"));
 
-//        FileUtil.writeCallchainsTo(resultsOfALl,"resultsOfALl.txt");
+        FileUtil.writeCallchainsTo(resultsOfALl,"resultsOfALl.txt");
         FileUtil.writeCallchainsTo(resultsOfAPP,"resultsOfAPP.txt");
 
     }

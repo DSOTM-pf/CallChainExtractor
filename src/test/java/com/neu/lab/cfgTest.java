@@ -38,7 +38,7 @@ public class cfgTest {
         //CallGraph
         CallGraph callGraph = cgAnalyzer.getCallGraph(Config.get().cgAlgo);
         methodAnalyzer = MethodAnalyzer.get(callGraph);
-        methodAnalyzer.test2018();
+        methodAnalyzer.test2019();
         // Iterate over the callgraph
 /*        for (Iterator<Edge> edgeIt = callGraph.iterator(); edgeIt.hasNext(); ) {
             Edge edge = edgeIt.next();

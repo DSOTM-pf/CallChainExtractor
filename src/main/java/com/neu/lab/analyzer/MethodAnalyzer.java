@@ -120,7 +120,8 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         callChains.clear();
         methodInit();
-        int i = 1;
+        callChains = test2019();
+/*        int i = 1;
 //        System.out.println("All Method:" + allMethods.size());
         for (JMethod api : allMethods) {
             //判断API是不是谷底
@@ -131,7 +132,7 @@ public class MethodAnalyzer {
             }
             System.out.println("Now:" + i + "/" + allMethods.size());
             i++;
-        }
+        }*/
         return callChains;
     }
 
@@ -143,15 +144,15 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         callChains.clear();
         methodInit();
-        int i = 1;
-//        System.out.println("All Method：" + allMethods.size());
+        callChains = test2019();
+/*        int i = 1;
         for (JMethod api : allMethods) {
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
             travelCallGraph(callChain, new HashSet<>(), callChains);
             System.out.println("Now:" + i + "/" + allMethods.size());
             i++;
-        }
+        }*/
         return callChains;
     }
 
@@ -203,16 +204,36 @@ public class MethodAnalyzer {
         return false;
     }
 
-    public void test2018() {
+    public Set<CallChain> test2019() {
         Set<CallChain> callChains = new HashSet<>();
         for (Edge edge : cg) {
             //这个是判断java的 edge.src().isEntryMethod()
-            if (isDummyMain(edge.src())) {
-                visitMethod(new LinkedList<>(), new HashSet<>(), edge.tgt(), callChains);
+            if (isDummyMain(edge.src()) && !reachSdk(JMethod.fromSootSignature(edge.tgt().getSignature()))) {
+                JMethod api = JMethod.fromSootSignature(edge.tgt().getSignature());
+                LinkedList<JMethod> callChain = new LinkedList<>();
+                callChain.addFirst(api);
+                visitMethod2(callChain, new HashSet<>(), callChains);
             }
         }
-        System.out.println("end");
-        FileUtil.writeCallchainsTo(callChains,"test");
+        return callChains;
+    }
+
+    private void visitMethod2(LinkedList<JMethod> chain, Set<JMethod> visited, Set<CallChain> callChains) {
+        JMethod method = chain.getFirst();
+        visited.add(method);
+        // https://github.com/secure-software-engineering/soot-infoflow-android/issues/155#issuecomment-344506022
+        SootMethod sootMethod = Scene.v().getMethod(method.toSootSignature());
+        Iterator<MethodOrMethodContext> parents = new Sources(cg.edgesOutOf(sootMethod));
+        Iterator<Edge> itr = cg.edgesOutOf(sootMethod);
+        while (itr.hasNext()) {
+            MethodOrMethodContext methodOrCntxt = itr.next().getTgt();
+            SootMethod targetMethod = methodOrCntxt.method();
+            if (targetMethod != null) {
+                chain.add(JMethod.fromSootSignature(targetMethod.getSignature()));
+            }
+        }
+        CallChain cc = new CallChain(chain); //temp
+        callChains.add(cc);
     }
 
     private boolean isDummyMain(SootMethod sootMethod) {
@@ -221,40 +242,14 @@ public class MethodAnalyzer {
         }
         return false;
     }
-    //DFS For Call Graph
-    //最后一条边和第一条是不是没加进去
-    //目前问题：call chain会清楚以前的
-    private void visitMethod(LinkedList<JMethod> chain, Set<String> visited, SootMethod method, Set<CallChain> callChains) {
-        //不应该在这里
-        /*        if(visited.contains(method.getSignature()))
-        {
-            if(chain.size()==0){return;}
-            CallChain cc = new CallChain(chain);
-            chain.clear();
-            callChains.add(cc);
-            return;
-        }*/
-        visited.add(method.getSignature());//已访问
-        chain.add(JMethod.fromSootSignature(method.getSignature()));//加入call chain
-        Iterator<MethodOrMethodContext> ctargets = new Sources(cg.edgesOutOf(method));
-        int i = 1;
-        for(Iterator<Edge> cEdges = cg.edgesOutOf(method);cEdges.hasNext();){
-            Edge e = cEdges.next();
-            SootMethod nextMethod = e.getTgt().method();//target method,next method
-            System.out.println(nextMethod);
-            visitMethod(chain,visited,nextMethod,callChains);
-            i++;
-        }
-        System.out.println("Times * " +i+" of =>" +method);
 
-    }
-/*    private void obtainApplicationMethods() {
-        for (SootClass sootClass : Scene.v().getApplicationClasses()) {
-            for (SootMethod sootMethod : sootClass.getMethods()) {
-                JMethod method = JMethod.fromSootSignature(sootMethod.getSignature());
-                applicationMethods.put(method, sootMethod);
-            }
-        }
-    }*/
+//    private void obtainApplicationMethods() {
+//        for (SootClass sootClass : Scene.v().getApplicationClasses()) {
+//            for (SootMethod sootMethod : sootClass.getMethods()) {
+//                JMethod method = JMethod.fromSootSignature(sootMethod.getSignature());
+//                applicationMethods.put(method, sootMethod);
+//            }
+//        }
+//    }
 
 }

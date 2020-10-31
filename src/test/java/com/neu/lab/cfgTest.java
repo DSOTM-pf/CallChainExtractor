@@ -26,7 +26,7 @@ public class cfgTest {
     public void testMain() throws IOException, XmlPullParserException {
         // Initialize Soot
 
-        Config.get().apkFile = Paths.get("apks/mapbox.apk");
+        Config.get().apkFile = Paths.get("apks/hello.apk");
         Config.get().androidJarDir = Paths.get("D:\\AndroidEnviorment\\androidJAR");
         Config.get().init();
 

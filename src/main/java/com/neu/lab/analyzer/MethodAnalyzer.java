@@ -208,16 +208,11 @@ public class MethodAnalyzer {
         for (Edge edge : cg) {
             //这个是判断java的 edge.src().isEntryMethod()
             if (isDummyMain(edge.src())) {
-/*                MethodOrMethodContext m = edge.getSrc();
-
-                Iterator<MethodOrMethodContext> ptargets = new Sources(cg.edgesOutOf(m));
-                System.out.println(ptargets.next());
-                System.out.println(edge);*/
-//                visitMethod(new LinkedList<>(),new HashSet<>(), edge.src(), callChains);
                 visitMethod(new LinkedList<>(), new HashSet<>(), edge.tgt(), callChains);
             }
         }
         System.out.println("end");
+        FileUtil.writeCallchainsTo(callChains,"test");
     }
 
     private boolean isDummyMain(SootMethod sootMethod) {
@@ -226,34 +221,32 @@ public class MethodAnalyzer {
         }
         return false;
     }
-    //遍历图
+    //DFS For Call Graph
+    //最后一条边和第一条是不是没加进去
+    //目前问题：call chain会清楚以前的
     private void visitMethod(LinkedList<JMethod> chain, Set<String> visited, SootMethod method, Set<CallChain> callChains) {
-        visited.add(method.getSignature());
-        Iterator<MethodOrMethodContext> parents = new Sources(cg.edgesInto(method));
-
+        //不应该在这里
+        /*        if(visited.contains(method.getSignature()))
+        {
+            if(chain.size()==0){return;}
+            CallChain cc = new CallChain(chain);
+            chain.clear();
+            callChains.add(cc);
+            return;
+        }*/
+        visited.add(method.getSignature());//已访问
+        chain.add(JMethod.fromSootSignature(method.getSignature()));//加入call chain
         Iterator<MethodOrMethodContext> ctargets = new Sources(cg.edgesOutOf(method));
+        int i = 1;
         for(Iterator<Edge> cEdges = cg.edgesOutOf(method);cEdges.hasNext();){
             Edge e = cEdges.next();
-            SootMethod nextMethod = e.getTgt().method();//target method
+            SootMethod nextMethod = e.getTgt().method();//target method,next method
             System.out.println(nextMethod);
-
+            visitMethod(chain,visited,nextMethod,callChains);
+            i++;
         }
-        ctargets.forEachRemaining(p -> {
-            if (p != null) {
-                //如何判断是最后一个方法？
+        System.out.println("Times * " +i+" of =>" +method);
 
-/*                SootMethod child = p.tgt();
-                System.out.println(p.tgt());
-                JMethod nextMethod = JMethod.fromSootSignature(child.getSignature());
-                chain.add(nextMethod);//add yo chain
-                if (isBottom(p.tgt())) {
-                    CallChain cc = new CallChain(chain);
-                    callChains.add(cc);
-                } else {
-                    if (!visited.contains(child.getSignature())) visitMethod(chain, visited, child, callChains);
-                }*/
-            }
-        });
     }
 /*    private void obtainApplicationMethods() {
         for (SootClass sootClass : Scene.v().getApplicationClasses()) {

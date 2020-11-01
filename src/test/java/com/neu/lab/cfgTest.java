@@ -2,6 +2,7 @@ package com.neu.lab;
 
 import com.neu.lab.analyzer.CGAnalyzer;
 import com.neu.lab.analyzer.MethodAnalyzer;
+import com.neu.lab.entity.CallChain;
 import com.neu.lab.util.FileUtil;
 import com.neu.lab.util.LogUtil;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import soot.jimple.toolkits.callgraph.Edge;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by 17921 on 2020/10/28
@@ -38,7 +40,8 @@ public class cfgTest {
         //CallGraph
         CallGraph callGraph = cgAnalyzer.getCallGraph(Config.get().cgAlgo);
         methodAnalyzer = MethodAnalyzer.get(callGraph);
-        methodAnalyzer.test2019();
+        Set<CallChain> callchains = methodAnalyzer.test2019();
+        FileUtil.writeCallchainsTo(callchains,"test");
         // Iterate over the callgraph
 /*        for (Iterator<Edge> edgeIt = callGraph.iterator(); edgeIt.hasNext(); ) {
             Edge edge = edgeIt.next();

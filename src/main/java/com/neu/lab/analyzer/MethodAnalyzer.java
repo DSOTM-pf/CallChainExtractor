@@ -120,8 +120,8 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         callChains.clear();
         methodInit();
-        callChains = test2019();
-/*        int i = 1;
+//        callChains = test2019();
+        int i = 1;
 //        System.out.println("All Method:" + allMethods.size());
         for (JMethod api : allMethods) {
             //判断API是不是谷底
@@ -132,7 +132,7 @@ public class MethodAnalyzer {
             }
             System.out.println("Now:" + i + "/" + allMethods.size());
             i++;
-        }*/
+        }
         return callChains;
     }
 
@@ -144,15 +144,15 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         callChains.clear();
         methodInit();
-        callChains = test2019();
-/*        int i = 1;
+//        callChains = test2019();
+        int i = 1;
         for (JMethod api : allMethods) {
             LinkedList<JMethod> callChain = new LinkedList<>();
             callChain.addFirst(api);
             travelCallGraph(callChain, new HashSet<>(), callChains);
             System.out.println("Now:" + i + "/" + allMethods.size());
             i++;
-        }*/
+        }
         return callChains;
     }
 

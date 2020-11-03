@@ -2,6 +2,7 @@ package com.neu.lab.analyzer;
 
 
 import com.neu.lab.Config;
+import com.neu.lab.ExcludeMethod;
 import com.neu.lab.Global;
 import com.neu.lab.entity.CallChain;
 import com.neu.lab.entity.JClass;
@@ -11,6 +12,7 @@ import soot.*;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.jimple.toolkits.callgraph.Sources;
+import soot.jimple.toolkits.callgraph.Targets;
 
 import java.io.File;
 import java.util.*;
@@ -182,7 +184,6 @@ public class MethodAnalyzer {
                         if (!isInSet(cc, callChains)) callChains.add(cc);
                     }
 //                        callChains.add(cc);}
-
                 }
             } else if (!visited.contains(nextMethod)) {
                 chain.addFirst(nextMethod);
@@ -208,32 +209,78 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         for (Edge edge : cg) {
             //这个是判断java的 edge.src().isEntryMethod()
-            if (isDummyMain(edge.src()) && !reachSdk(JMethod.fromSootSignature(edge.tgt().getSignature()))) {
+            if (isDummyMain(edge.src()) && isDummyMain(edge.tgt())&& !reachSdk(JMethod.fromSootSignature(edge.tgt().getSignature()))) {
                 JMethod api = JMethod.fromSootSignature(edge.tgt().getSignature());
                 LinkedList<JMethod> callChain = new LinkedList<>();
                 callChain.addFirst(api);
                 visitMethod2(callChain, new HashSet<>(), callChains);
+//                callGraphDFS(edge.tgt(),callChains);
+                System.out.println("");
             }
         }
         return callChains;
     }
 
     private void visitMethod2(LinkedList<JMethod> chain, Set<JMethod> visited, Set<CallChain> callChains) {
-        JMethod method = chain.getFirst();
-        visited.add(method);
+        JMethod method = chain.get(chain.size()-1);//要处理的方法
+        visited.add(method);//设置为已经访问过
+
         // https://github.com/secure-software-engineering/soot-infoflow-android/issues/155#issuecomment-344506022
         SootMethod sootMethod = Scene.v().getMethod(method.toSootSignature());
-        Iterator<MethodOrMethodContext> parents = new Sources(cg.edgesOutOf(sootMethod));
-        Iterator<Edge> itr = cg.edgesOutOf(sootMethod);
+        Iterator<Edge> itr = cg.edgesOutOf(sootMethod);//获取遍历
         while (itr.hasNext()) {
             MethodOrMethodContext methodOrCntxt = itr.next().getTgt();
             SootMethod targetMethod = methodOrCntxt.method();
-            if (targetMethod != null) {
-                chain.add(JMethod.fromSootSignature(targetMethod.getSignature()));
+            System.out.println(targetMethod);
+            JMethod nextMethod = null;
+            if(targetMethod!=null) nextMethod = JMethod.fromSootSignature(targetMethod.getSignature());
+            boolean isExclude = ExcludeMethod.excludeMethod(targetMethod);
+            boolean isNull = targetMethod == null?true:false;
+            if (ExcludeMethod.excludeMethod(targetMethod) || targetMethod==null) {//一条边终点条件
+                CallChain cc = new CallChain(chain);
+                callChains.add(cc);
+                return;
+            } else if (!visited.contains(nextMethod)) {
+                chain.add(nextMethod);
+                visitMethod2(chain, visited, callChains);
+                chain.remove(chain.size() - 1);
             }
         }
-        CallChain cc = new CallChain(chain); //temp
-        callChains.add(cc);
+    }
+
+    private void callGraphDFS(SootMethod sootMethod, Set<CallChain> callChains) {
+        LinkedList<JMethod> trace = new LinkedList<>();
+        Queue<SootMethod> DFSq = new ArrayDeque<>();
+        HashSet<SootMethod> visited = new HashSet<>();
+
+        //add
+        DFSq.add(sootMethod);
+        visited.add(sootMethod);
+        int counter = 0;
+        while (DFSq.peek() != null) {
+            counter++;
+            SootMethod poppedMethod = DFSq.poll();
+            trace.add(JMethod.fromSootSignature(poppedMethod.getSignature()));//chain
+            if (ExcludeMethod.excludeMethod(poppedMethod))//java method add to chain,but not next
+            {
+                CallChain cc = new CallChain(trace);
+                callChains.add(cc);
+                trace.remove(poppedMethod);
+                continue;
+            }
+            Iterator<MethodOrMethodContext> targets = new Targets(cg.edgesOutOf(poppedMethod));
+            while (targets.hasNext()) {
+                SootMethod targetMethod = (SootMethod) targets.next();
+
+                if (!visited.contains(targetMethod)) {
+                    DFSq.add(targetMethod);
+                    visited.add(targetMethod);
+                } else
+                    continue;
+            }
+        }
+        trace.remove(0);
+        return;
     }
 
     private boolean isDummyMain(SootMethod sootMethod) {

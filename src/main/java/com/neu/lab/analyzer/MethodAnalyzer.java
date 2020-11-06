@@ -209,7 +209,7 @@ public class MethodAnalyzer {
         Set<CallChain> callChains = new HashSet<>();
         for (Edge edge : cg) {
             //这个是判断java的 edge.src().isEntryMethod()
-            if (isDummyMain(edge.src()) && isDummyMain(edge.tgt())&& !reachSdk(JMethod.fromSootSignature(edge.tgt().getSignature()))) {
+            if (isDummyMain(edge.src()) && !isDummyMain(edge.tgt())&& !reachSdk(JMethod.fromSootSignature(edge.tgt().getSignature()))) {
                 JMethod api = JMethod.fromSootSignature(edge.tgt().getSignature());
                 LinkedList<JMethod> callChain = new LinkedList<>();
                 callChain.addFirst(api);
@@ -225,18 +225,18 @@ public class MethodAnalyzer {
         JMethod method = chain.get(chain.size()-1);//要处理的方法
         visited.add(method);//设置为已经访问过
 
-        // https://github.com/secure-software-engineering/soot-infoflow-android/issues/155#issuecomment-344506022
         SootMethod sootMethod = Scene.v().getMethod(method.toSootSignature());
         Iterator<Edge> itr = cg.edgesOutOf(sootMethod);//获取遍历
-        while (itr.hasNext()) {
+        while (itr.hasNext()) {//遍历每个结点的所有next
             MethodOrMethodContext methodOrCntxt = itr.next().getTgt();
             SootMethod targetMethod = methodOrCntxt.method();
             System.out.println(targetMethod);
             JMethod nextMethod = null;
-            if(targetMethod!=null) nextMethod = JMethod.fromSootSignature(targetMethod.getSignature());
+            if(targetMethod!=null) nextMethod = JMethod.fromSootSignature(targetMethod.getSignature());//获取后继结点
             boolean isExclude = ExcludeMethod.excludeMethod(targetMethod);
             boolean isNull = targetMethod == null?true:false;
             if (ExcludeMethod.excludeMethod(targetMethod) || targetMethod==null) {//一条边终点条件
+                chain.add(nextMethod);
                 CallChain cc = new CallChain(chain);
                 callChains.add(cc);
                 return;

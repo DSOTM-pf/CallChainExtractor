@@ -16,6 +16,6 @@ public class ExcludeMethod
                 || pkg.contains("java.util") || pkg.contains("sun.security")
                 || pkg.contains("java.security") || pkg.contains("sun.reflect")
                 || pkg.contains("sun.net") || pkg.contains("java.nio")
-                || pkg.contains("sun.misc") || pkg.contains("java.nio"));
+                || pkg.contains("sun.misc") || pkg.contains("java.nio") /*|| pkg.contains("android.") || pkg.contains("androidx.")|| pkg.contains("com.android")|| pkg.contains("com.google.android")*/);
     }
 }
